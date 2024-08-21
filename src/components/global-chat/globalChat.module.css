@@ -1,0 +1,77 @@
+.content{
+    padding: 12px;
+    flex: 90%;
+    background: url("../../../public/chatBackground1.png") no-repeat  ;
+    background-position: center center;
+    background-size: cover;
+     backdrop-filter:10px;
+     display: flex;
+     flex-direction: column;
+     position: relative;
+     height: 90%;
+}
+   .globalContent{
+        overflow-y:scroll;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        height: 90%;
+}
+.globalSearchBar{
+    position: absolute;
+    bottom: 1.3rem;
+    display: flex; 
+    width: 95%;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+} 
+.globalSearchBar  div{
+    flex: 88%;
+    display: flex;
+    background-color: white;
+    gap: 10px;
+    border-radius: 12px;
+    padding: 3px 13px 3px 13px;
+    justify-content: center;
+    align-items: center;
+}
+.globalSearchBar div img{
+ flex: 10%;
+} 
+.globalSearchBar div input{
+    flex: 90%;
+    padding: 4px;
+}
+.globalSearchBar div input:focus{
+    outline: none;
+}
+.globalSearchBar img{
+    flex: 12%;
+}
+
+
+/* global chat ui */
+
+.globalMessage{
+    display: flex;
+    width: 100%;
+}
+.chatPosition{
+    border-radius: 15px;
+    padding: 0.5rem 0.5rem 0.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    background: #c1d8c1;
+}
+.chatPosition div{
+    display: flex;
+    justify-content: space-between;
+}
+.username{
+    font-weight: bold;
+}
+.message{
+   padding-left: 0.5rem;
+}

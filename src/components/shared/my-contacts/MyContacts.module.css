@@ -1,0 +1,132 @@
+
+.contacts{
+    flex:30%;
+    border-radius:6px;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    padding: 12px 2rem 2rem 15px;
+    max-width: 30%;
+ }
+
+
+ 
+ /* active users */
+ .contactsNav{
+       flex: 10%;
+       display: flex;
+       flex-direction: column;
+       gap: 5px; 
+ }
+
+ .contactsNav div{
+    display: flex;
+   justify-content: space-between;
+   cursor: pointer;
+ }
+
+ .contactsNav ul{
+     display: flex;
+     align-items: center;
+     gap: 10px; 
+     overflow-x:scroll; 
+ }
+ .contactsNav ul::-webkit-scrollbar{
+    height:8px;
+    background-color: white;
+  }
+  .contactsNav ul::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 10px 10px white;
+    border: solid 7px transparent;
+}
+  .contactsNav ul::-webkit-scrollbar-thumb:hover{
+    box-shadow: inset 0 0 10px 10px rgb(204, 203, 203);
+    border: solid 3px transparent;
+      }
+
+
+ .contactsNav ul li img{
+    width: 1.5rem;
+    height: 1.5rem;
+ }
+ 
+ /* search bar */
+ .contactsSearchBar{
+      flex: 10%;
+      display: flex;
+      align-items: center;
+      width: 100%;
+ }
+ .contactsSearchBar div{
+     display: flex;
+     background-color: #bbb6b657;
+     gap: 5px;
+     border-radius: 12px;
+     padding: 1px 10px 1px 10px;
+     justify-content: center;
+     align-items: center;
+     width: 100%;
+ }
+ .contactsSearchBar div input{
+     flex: 90%;
+     padding: 4px;
+     background-color: #efe3e357;
+    width: 100%;
+ }
+ .contactsSearchBar div input:focus{
+     outline: none;
+ }
+ 
+ 
+ 
+ .contactsContent{
+     gap: 5px;
+     padding-top: 8px;
+      flex:80%;
+      width: 100%;
+     display: flex;
+     flex-direction: column;
+     height: 80%;
+ }
+ .contactsContent h4{
+      flex: 5%;
+ }
+ .contactsProfile{
+     flex: 95%;
+     width: 100%;
+     height: 95%;
+ }
+ .contactsProfile ul {
+     display: flex;
+     flex-direction: column;
+     max-height: 100%;
+     overflow-y: scroll;
+ }
+ .contactsProfile ul::-webkit-scrollbar {
+   width: 0;
+ }
+ .contactsProfile ul li{
+     display: flex;
+     gap: 12px;
+     align-items: center;
+     padding: 8px 13px 8px 13px;
+ }
+ .contactsProfile ul li:hover{
+      background-color: rgb(234, 234, 234);
+      cursor: pointer;
+ }
+ 
+ .contactsProfile ul li img{
+     flex: 10%;
+     width: 2rem;
+     height: 2rem;
+ }
+ .userContact{
+     flex: 90%;
+     display: flex;
+     flex-direction: column;
+ }
+ .userInfo{
+     display: flex;
+     justify-content: space-between;
+ }

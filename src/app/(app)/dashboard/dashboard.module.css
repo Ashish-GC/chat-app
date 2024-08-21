@@ -1,0 +1,26 @@
+.container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    gap: 2rem;
+    color: black;
+}
+.global{
+  flex: 70%;
+  border-radius:4px;
+  display: flex;
+  flex-direction: column;
+  background: white;
+  max-height: 100%;
+}
+ .globalNav{
+     border-bottom: 2px solid rgb(147, 146, 146);
+     padding: 12px;
+     flex: 10%;
+}
+ .globalNav ul{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+ 
