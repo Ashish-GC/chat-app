@@ -24,11 +24,9 @@ export async function POST(request: Request) {
         { status: 400 }
       );
     }
-     
+
     const user1 = await User.findOne({ email: userEmail }).select("-password");
     const user2 = await User.findOne({ username: friend }).select("-password");
-
-
 
     if (!user1 && !user2) {
       return Response.json(
@@ -55,34 +53,34 @@ export async function POST(request: Request) {
     user2.friends.unshift(user1.username);
     await user2.save();
 
+    //check if room already exists
+    const x = user1.username;
+    const y = user2.username;
 
+    const privateRoom = await Room.findOne({ contacts: { $all: [x, y] } });
 
-     // creat a room  for private messaging 
+    if (!privateRoom) {
+      // creat a room  for private messaging
 
-      const x = user1.username
-      const y = user2.username
+      const randomString = generateRandomString();
+      const roomName = x + y + randomString;
+
+      // here create room
+
+      const createRoom = await Room.create({
+        name: roomName,
+        contacts: [x, y],
+      });
+
+      if (!createRoom) {
+        return Response.json(
+          { success: false, message: "unabel to create room" },
+          { status: 400 }
+        );
+      }
+    }
 
    
-      const randomString=generateRandomString();
-      const roomName = x+y+randomString;
-
-    
-   // here create room
-
-   const createRoom = await Room.create({
-    name: roomName,
-    contacts: [x,y]
-   })
-
- console.log(createRoom)
-   if(!createRoom){
-    return Response.json(
-      { success: false, message: "unabel to create room" },
-      { status: 400 }
-    );
-   }
-
-
 
     return Response.json(
       { success: true, message: "friend added successfully" },
@@ -90,16 +88,16 @@ export async function POST(request: Request) {
     );
   } catch (error) {
     return Response.json(
-      { success: false, message: "unable to add friend" , error:error },
+      { success: false, message: "unable to add friend", error: error },
       { status: 500 }
     );
   }
 }
 
-
 function generateRandomString() {
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  let result = '';
+  const characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let result = "";
   for (let i = 0; i < 15; i++) {
     result += characters.charAt(Math.floor(Math.random() * characters.length));
   }

@@ -38,6 +38,9 @@ export async function GET(request: Request) {
          }
          
 
+          user.lastLogin = new Date();
+          user.save();
+
         return Response.json(
             { success: true, data:user },
             {

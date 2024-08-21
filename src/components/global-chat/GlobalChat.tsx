@@ -7,22 +7,32 @@ import { UserContext } from "@/context/UserContext";
 import { SiTicktick } from "react-icons/si";
 import { RiAddCircleLine } from "react-icons/ri";
 import axios from "axios";
+import { formatDateTime } from "@/helpers/handleTime";
 
 function GlobalChat() {
-  const { user } = useContext(UserContext);
+  const { user,setUser } = useContext(UserContext);
   const { socket } = useSocket();
 
+  const  recentMessage:any = useRef();
+
   const [globalMessage, setGlobalMessage] = useState([
-    { user: "", message: "" },
+    { user: "", message: "",time:new Date() },
   ]);
 
   const message = useRef<HTMLInputElement>(null);
+
+  useEffect(()=>{
+    recentMessage.current?.scrollIntoView({ behavior: 'smooth' });
+  },[globalMessage])
 
   useEffect(() => {
     socket?.emit("connect:user", `${user.username}`);
 
     socket?.on("global:message", (data) => {
       setGlobalMessage((prev) => {
+        if(prev[prev.length-1].time === data.time && prev[prev.length-1].user === data.user){
+          return [...prev]
+        }
         return [...prev, data];
       });
     });
@@ -30,14 +40,16 @@ function GlobalChat() {
 
   const sendMessage = () => {
     const userMessage = message?.current?.value || "";
-  
+    const time = new Date();
     setGlobalMessage((prev) => {
-      return [...prev, { user: user.username, message: userMessage }];
+      
+      return [...prev, { user: user.username, message: userMessage ,time:time}];
     });
 
     socket?.emit("global:message", {
       user: user.username,
       message: userMessage,
+      time:time
     });
 
     if (message?.current && message?.current?.value) {
@@ -50,7 +62,12 @@ function GlobalChat() {
   const addToContacts = async (friend: string) => {
     // console.log("here")
      const response = await axios.post('/api/user/addToFriend',{friend})
+      setUser({
+        ...user,
+        friends: [...user.friends, friend],
+      })
     //  const response = await axios.post('/api/user/removeFromFriend',{friend})
+
   };
 
   return (
@@ -60,10 +77,11 @@ function GlobalChat() {
           if (chat.user === "") {
             return <div key={index}></div>;
           }
-
+              const getTime = formatDateTime(chat.time.toLocaleString())
           return (
             <div
               key={index}
+              ref={ index===globalMessage.length-1? recentMessage : null }
               className={`${chat.user === user.username && "justify-end"}  ${
                 classes.globalMessage
               }`}
@@ -91,7 +109,7 @@ function GlobalChat() {
                     }
                  
                   </div>
-                  {/* <p className="timer"></p> */}
+                  <p className={classes.timer}>{getTime.time}</p>
                 </div>
                 <p className={classes.message}>{chat.message}</p>
               </div>

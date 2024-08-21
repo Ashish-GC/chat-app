@@ -56,16 +56,19 @@
 .globalMessage{
     display: flex;
     width: 100%;
+    padding: 0 0.5rem 0 0;
 }
 .chatPosition{
     border-radius: 15px;
     padding: 0.5rem 0.5rem 0.5rem 1rem;
     display: flex;
+    gap: 0.5px;
     flex-direction: column;
-    width: 50%;
+    width: max-content;
     background: #c1d8c1;
 }
 .chatPosition div{
+    gap: 1.5rem;
     display: flex;
     justify-content: space-between;
 }
@@ -74,4 +77,7 @@
 }
 .message{
    padding-left: 0.5rem;
+}
+.timer{
+    font-size: 0.6rem;
 }

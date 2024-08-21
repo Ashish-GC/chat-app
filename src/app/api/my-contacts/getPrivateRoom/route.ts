@@ -36,7 +36,7 @@ export async function GET(request:Request){
           );
      }
 
-      const privateRoom =  await Room.findOne({contacts:{$all:["aws","asd"]}})
+      const privateRoom =  await Room.findOne({contacts:{$all:[friend,username]}})
 
        return Response.json(
         { success: true, message: "room fetched successfully" , privateRoom },

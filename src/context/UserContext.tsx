@@ -15,7 +15,7 @@ const initialUser={
 
 const initialContext:userContextType={
     user:initialUser,
-    setUser:()=>{}
+    setUser:()=>{},
 }
 
 export const UserContext= createContext(initialContext)
@@ -28,6 +28,8 @@ export const ContextProvider=({children}:{children:React.ReactNode})=>{
 
      const getCurrentUser = async ()=>{
         const getUser= await axios.get('/api/user/getCurrentUser') ;
+        // const user = getUser.data.data;
+        //  user.lastLogin= new Date();
              setUser(getUser.data.data);
         }
         useEffect(()=>{

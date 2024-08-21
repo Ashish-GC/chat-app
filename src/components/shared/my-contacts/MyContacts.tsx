@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { BsThreeDotsVertical } from "react-icons/bs";
 
@@ -9,8 +9,12 @@ import profileImage from "../../../../public/profileImage.png";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { UserContext } from "@/context/UserContext";
+import { formatDateTime } from "@/helpers/handleTime";
 
 function MyContacts() {
+  const user = useContext(UserContext);
+
   const router = useRouter();
   const [contacts, setContacts] = useState<
     [
@@ -52,21 +56,18 @@ function MyContacts() {
   ]);
 
   // get all contacts
-
-  useEffect(() => {
-    async function getContacts() {
-      const response = await axios.get("/api/user/getUserContacts");
-         
-      if( response.data.contacts[0] ){
-        const contacts = response.data.contacts[0].friendDetails;
-          setContacts(contacts);
-      }
-     
-     
-    
+  async function getContacts() {
+    const response = await axios.get("/api/user/getUserContacts");
+       
+    if( response.data.contacts[0] ){
+      const contacts = response.data.contacts[0].friendDetails;
+        setContacts(contacts);
     }
+  }
+  
+  useEffect(() => {
     getContacts();
-  }, []);
+  }, [user]);
 
   const privateRoom = (username: string) => {
     router.push(`/room/${username}`);
@@ -129,13 +130,14 @@ function MyContacts() {
           <ul>
             {filteredContacts[0]?.username != "" &&
               filteredContacts.map((friend, index) => {
+                const getTime = formatDateTime(friend.lastLogin);
                 return (
                   <li key={index} onClick={() => privateRoom(friend.username)}>
                     <Image src={profileImage} alt="profile"></Image>
                     <div className={classes.userContact}>
                       <div className={classes.userInfo}>
                         <p className="font-bold">{friend.username}</p>
-                        <p className="text-gray-500">{friend.lastLogin}</p>
+                        <p className="text-gray-500">{getTime.time}</p>
                       </div>
 
                       {/* <p className='text-gray-500'>message</p> */}
@@ -145,13 +147,14 @@ function MyContacts() {
               })}
             {filteredContacts[0]?.username == "" && contacts[0].username !="" &&
               contacts.map((friend, index) => {
+                const getTime = formatDateTime(friend.lastLogin);
                 return (
                   <li key={index} onClick={() => privateRoom(friend.username)}>
                     <Image src={profileImage} alt="profile"></Image>
                     <div className={classes.userContact}>
                       <div className={classes.userInfo}>
                         <p className="font-bold">{friend.username}</p>
-                        <p className="text-gray-500">{friend.lastLogin}</p>
+                        <p className="text-gray-500">{getTime.time}</p>
                       </div>
 
                       {/* <p className='text-gray-500'>message</p> */}

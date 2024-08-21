@@ -5,6 +5,7 @@ import classes from "./privateChat.module.css";
 import { useSocket } from "@/context/SocketContext";
 import { UserContext } from "@/context/UserContext";
 import axios from "axios";
+import { formatDateTime } from "@/helpers/handleTime";
 
 
 
@@ -20,12 +21,20 @@ function PrivateChat({friend}:{friend:string}) {
     { user: "", message: "" , time:new Date(), roomName:""},
   ]);
 
+  const latestMessage:any=useRef();
+
+  useEffect(()=>{
+    latestMessage.current?.scrollIntoView({ behavior: 'smooth' });
+  },[privateMessage])
+
   useEffect(()=>{
      async function getRoomId(){
        const response = await axios.get(`/api/my-contacts/getPrivateRoom?friend=${friend}`);
        setPrivateRoom(response.data.privateRoom) 
      }
-     getRoomId();
+     getRoomId().then(()=>{
+      
+     })
  },[])
  
  useEffect(()=>{
@@ -38,6 +47,7 @@ function PrivateChat({friend}:{friend:string}) {
   const response = await axios.get(`/api/get-message?roomName=${privateRoom.name}`);
     const messages= await  response.data.messages ;
     setPrivateMessage(messages);
+   
  }
 
    useEffect(()=>{
@@ -46,7 +56,13 @@ function PrivateChat({friend}:{friend:string}) {
             socket?.emit("private:Room",`${user.username} connected`);
             socket?.emit("join:Room",privateRoom);
             socket?.on("private:message", (data) => {
-              setPrivateMessage((prev) => [...prev, data]);
+              
+              setPrivateMessage((prev)=>{
+                      if(prev[0].user!="" && prev[prev.length-1].time === data.time){
+                        return [...prev];
+                      }
+                 return [...prev, data];
+              });
             });
     }
    },[privateRoom?.name,socket?.id,user.username])
@@ -55,14 +71,14 @@ function PrivateChat({friend}:{friend:string}) {
 
   const sendMessage = () => {
     const userMessage = message?.current?.value || "";
-
+    const time = new Date();
     setPrivateMessage((prev) => {
-      return [...prev, { user: user.username, message: userMessage , time: new Date(), roomName:privateRoom.name}];
+      return [...prev, { user: user.username, message: userMessage , time, roomName:privateRoom.name}];
     });
     
       // add message data to database
          async function postMessage(){
-          const messageResponse = await axios.post('/api/message',{ user: user.username, message: userMessage , time: new Date(), roomName:privateRoom.name})
+          const messageResponse = await axios.post('/api/message',{ user: user.username, message: userMessage , time, roomName:privateRoom.name})
            if(!messageResponse){
               console.log("error")
            }
@@ -75,7 +91,7 @@ function PrivateChat({friend}:{friend:string}) {
     socket?.emit("private:message", {
       user: user.username,
       message: userMessage,
-      time: new Date(),
+      time:time,
       roomName: privateRoom.name,
     });
 
@@ -84,9 +100,6 @@ function PrivateChat({friend}:{friend:string}) {
     }
   };
 
-  
-
-
   return (
     <article className={classes.content}>
       <div className={classes.globalContent}>
@@ -94,17 +107,18 @@ function PrivateChat({friend}:{friend:string}) {
           if (chat.user === "") {
             return <div key={index}></div>;
           }
-
+                 const getTime = formatDateTime(chat.time.toLocaleString())
           return (
             <div
               key={index}
+              ref={index===privateMessage.length-1?latestMessage:null}
               className={`${chat.user === user.username && "justify-end"}  ${
                 classes.globalMessage
               }`}
             >
               <div className={classes.chatPosition}>
                 <p className={classes.message}>{chat.message}</p>
-                <p className={classes.timer}>time</p>
+                <p className={classes.timer}>{getTime.time}</p>
               </div>
             </div>
           );

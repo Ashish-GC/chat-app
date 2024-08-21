@@ -11,5 +11,5 @@ export type userType ={
 
 export type userContextType = {
     user:userType,
-    setUser:React.Dispatch<React.SetStateAction<userType>>;
+    setUser:React.Dispatch<React.SetStateAction<userType>>,
 }
