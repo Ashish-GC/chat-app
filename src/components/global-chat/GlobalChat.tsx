@@ -36,16 +36,32 @@ function GlobalChat() {
   },[globalMessage])
 
   useEffect(() => {
-    socket?.emit("connect:user", `${user.username}`);
+    try {
+      socket?.emit("connect:user", `${user.username}`);
 
-    socket?.on("global:message", (data) => {
-      setGlobalMessage((prev) => {
-        if(prev[prev.length-1].time === data.time && prev[prev.length-1].user === data.user){
-          return [...prev]
-        }
-        return [...prev, data];
+      socket?.on("global:message", (data) => {
+        setGlobalMessage((prev) => {
+          if(prev[prev.length-1].time === data.time && prev[prev.length-1].user === data.user){
+            return [...prev]
+          }
+          return [...prev, data];
+        });
       });
-    });
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        description:"Network Error",
+        action: (
+          <ToastAction
+            altText="Try again"
+            onClick={() => window.location.reload()}
+          >
+            Try again
+          </ToastAction>
+        ),
+      });
+    }
+  
   }, [user.username, socket?.id]);
 
   const sendMessage = () => {
@@ -56,11 +72,13 @@ function GlobalChat() {
       return [...prev, { user: user.username, message: userMessage ,time:time}];
     });
 
-    socket?.emit("global:message", {
-      user: user.username,
-      message: userMessage,
-      time:time
-    });
+      console.log("error");
+      socket?.emit("global:message", {
+        user: user.username,
+        message: userMessage,
+        time:time
+      });
+ 
 
     setMessage("");
   };
@@ -116,6 +134,20 @@ function GlobalChat() {
      })
   }
 
+  socket?.on("connect_error", (err) => {
+    toast({
+      variant: "destructive",
+      description:"Network Error",
+      action: (
+        <ToastAction
+          altText="Try again"
+          onClick={() => window.location.reload()}
+        >
+          Try again
+        </ToastAction>
+      ),
+    });
+  });
 
   return (
     <article className={classes.content}>

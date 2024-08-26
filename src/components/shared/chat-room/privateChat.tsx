@@ -8,6 +8,7 @@ import axios from "axios";
 import { formatDateTime } from "@/helpers/handleTime";
 import { useToast } from "@/components/ui/use-toast";
 import { OpenEmoji } from "../emojiPicker/OpenEmoji";
+import { ToastAction } from "@/components/ui/toast";
 
 
 
@@ -60,27 +61,61 @@ import { OpenEmoji } from "../emojiPicker/OpenEmoji";
  },[privateRoom?.name])
 
  async function getMessages(){
-  const response = await axios.get(`/api/get-message?roomName=${privateRoom.name}`);
+  try {
+    const response = await axios.get(`/api/get-message?roomName=${privateRoom.name}`);
     const messages= await  response.data.messages ;
     setPrivateMessage(messages);
+  } catch (error) {
+    toast({
+      variant: "destructive",
+      description:"Network Error. Unable to get message",
+      action: (
+        <ToastAction
+          altText="Try again"
+          onClick={() => window.location.reload()}
+        >
+          Try again
+        </ToastAction>
+      ),
+    });
+  }
+ 
+   
    
  }
 
    useEffect(()=>{
-    if (privateRoom.name != '') {
-            // connect socket 
-            socket?.emit("private:Room",`${user.username} connected`);
-            socket?.emit("join:Room",privateRoom);
-            socket?.on("private:message", (data) => {
-              
-              setPrivateMessage((prev)=>{
-                      if(prev[0] && prev[0].user!="" && prev[prev.length-1].time === data.time){
-                        return [...prev];
-                      }
-                 return [...prev, data];
-              });
-            });
+    try {
+      if (privateRoom.name != '') {
+        // connect socket 
+      
+        socket?.emit("private:Room",`${user.username} connected`);
+        socket?.emit("join:Room",privateRoom);
+        socket?.on("private:message", (data) => {
+          
+          setPrivateMessage((prev)=>{
+                  if(prev[0] && prev[0].user!="" && prev[prev.length-1].time === data.time){
+                    return [...prev];
+                  }
+             return [...prev, data];
+          });
+        });
+} 
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        description:"Network Error",
+        action: (
+          <ToastAction
+            altText="Try again"
+            onClick={() => window.location.reload()}
+          >
+            Try again
+          </ToastAction>
+        ),
+      });
     }
+  
    },[privateRoom?.name,socket?.id,user.username])
 
   // const message = useRef<HTMLInputElement>(null);
@@ -94,23 +129,36 @@ import { OpenEmoji } from "../emojiPicker/OpenEmoji";
     
       // add message data to database
          async function postMessage(){
-          const messageResponse = await axios.post('/api/message',{ user: user.username, message: userMessage , time, roomName:privateRoom.name})
-           if(!messageResponse){
-              console.log("error")
-           }
+          try {
+            const messageResponse = await axios.post('/api/message',{ user: user.username, message: userMessage , time, roomName:privateRoom.name})
+          } catch (error) {
+            toast({
+              variant: "destructive",
+              description:"Network Error. Unable to send message",
+              action: (
+                <ToastAction
+                  altText="Try again"
+                  onClick={() => window.location.reload()}
+                >
+                  Try again
+                </ToastAction>
+              ),
+            });
+          }
+           
         }
         postMessage();
-       
-
+  
      // send message to  server socket  and also store the message in message schema 
 
-    socket?.emit("private:message", {
-      user: user.username,
-      message: userMessage,
-      time:time,
-      roomName: privateRoom.name,
-    });
+  socket?.emit("private:message", {
+    user: user.username,
+    message: userMessage,
+    time:time,
+    roomName: privateRoom.name,
+  });
 
+   
     setMessage("");
   };
 
@@ -119,6 +167,21 @@ import { OpenEmoji } from "../emojiPicker/OpenEmoji";
      return prev+emoji
     })
  }
+
+ socket?.on("connect_error", (err) => {
+  toast({
+    variant: "destructive",
+    description:"Network Error",
+    action: (
+      <ToastAction
+        altText="Try again"
+        onClick={() => window.location.reload()}
+      >
+        Try again
+      </ToastAction>
+    ),
+  });
+});
 
 
   return (
