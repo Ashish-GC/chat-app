@@ -6,12 +6,22 @@ import { useSocket } from "@/context/SocketContext";
 import { UserContext } from "@/context/UserContext";
 import axios from "axios";
 import { formatDateTime } from "@/helpers/handleTime";
+import { useToast } from "@/components/ui/use-toast";
+import { OpenEmoji } from "../emojiPicker/OpenEmoji";
 
 
 
-function PrivateChat({friend}:{friend:string}) {
+ function PrivateChat({friend}:{friend:string}) {
   const { user } = useContext(UserContext);
   const { socket } = useSocket();
+  const {toast} = useToast();
+  const [message,setMessage]=useState("");
+
+   // listen to every change ->
+   const onMessageChangeHandler=(e:any)=>{
+    setMessage(e.target.value);
+}
+
   const [privateRoom,setPrivateRoom]=useState({
     name:"",
     contacts:[],
@@ -29,12 +39,18 @@ function PrivateChat({friend}:{friend:string}) {
 
   useEffect(()=>{
      async function getRoomId(){
-       const response = await axios.get(`/api/my-contacts/getPrivateRoom?friend=${friend}`);
-       setPrivateRoom(response.data.privateRoom) 
+      try {
+        const response = await axios.get(`/api/my-contacts/getPrivateRoom?friend=${friend}`);
+        setPrivateRoom(response.data.privateRoom) 
+      } catch (error) {
+        toast({
+          variant: "destructive",
+          description: "unable to get private room"
+        })
+      }
+     
      }
-     getRoomId().then(()=>{
-      
-     })
+     getRoomId()
  },[])
  
  useEffect(()=>{
@@ -58,7 +74,7 @@ function PrivateChat({friend}:{friend:string}) {
             socket?.on("private:message", (data) => {
               
               setPrivateMessage((prev)=>{
-                      if(prev[0].user!="" && prev[prev.length-1].time === data.time){
+                      if(prev[0] && prev[0].user!="" && prev[prev.length-1].time === data.time){
                         return [...prev];
                       }
                  return [...prev, data];
@@ -67,10 +83,10 @@ function PrivateChat({friend}:{friend:string}) {
     }
    },[privateRoom?.name,socket?.id,user.username])
 
-  const message = useRef<HTMLInputElement>(null);
+  // const message = useRef<HTMLInputElement>(null);
 
   const sendMessage = () => {
-    const userMessage = message?.current?.value || "";
+    const userMessage = message;
     const time = new Date();
     setPrivateMessage((prev) => {
       return [...prev, { user: user.username, message: userMessage , time, roomName:privateRoom.name}];
@@ -95,10 +111,15 @@ function PrivateChat({friend}:{friend:string}) {
       roomName: privateRoom.name,
     });
 
-    if (message?.current && message?.current?.value) {
-      message.current.value = "";
-    }
+    setMessage("");
   };
+
+  const addEmojiHandler=(emoji:string)=>{
+    setMessage((prev)=>{
+     return prev+emoji
+    })
+ }
+
 
   return (
     <article className={classes.content}>
@@ -127,15 +148,17 @@ function PrivateChat({friend}:{friend:string}) {
 
       <footer className={classes.globalSearchBar}>
         <div>
-          <BsEmojiSmile size={20} color="gray" />
+         <OpenEmoji getEmoji={addEmojiHandler}/>
           <input
             onKeyDown={(event) => {
               if (event.key === "Enter") {
                 sendMessage();
               }
             }}
-            ref={message}
+            // ref={message}
+            onChange={onMessageChangeHandler}
             type="text"
+            value={message}
             placeholder="Type a message"
           ></input>
         </div>

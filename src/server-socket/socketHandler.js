@@ -32,6 +32,14 @@ export const socketHandler=(httpServer)=>{
             })
          })
          
+         // updating values
+
+         socket.on("update:contacts",()=>{
+            console.log("update the contacts")
+            console.log(socket);
+              socket.broadcast.emit("updated:contacts",socket.id);
+         })
+
     }); 
 
 }

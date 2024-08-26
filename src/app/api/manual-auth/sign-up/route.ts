@@ -33,6 +33,7 @@ export async function POST(request: Request) {
     const existingEmail:any = await User.find({ email });
 
     if (existingEmail?.email) {
+      console.log("here",existingEmail)
       return Response.json(
         { success: false, message: "Email already exists" },
         {
@@ -67,7 +68,7 @@ export async function POST(request: Request) {
 
   } catch (error: any) {
     return Response.json(
-      { success: false, message: error.message + " Error registering user" },
+      { success: false, message: error + " Error registering user" },
       { status: 500 }
     );
   }

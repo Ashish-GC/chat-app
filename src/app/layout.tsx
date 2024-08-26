@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils"
 import AuthProvider from "@/context/AuthContext";
 import { ContextProvider } from "@/context/UserContext";
 import { SocketProvider } from "@/context/SocketContext";
+import { Toaster } from "@/components/ui/toaster";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -33,6 +34,7 @@ export default function RootLayout({
       )}
       >
         {children}
+        <Toaster/>
         </body>
         </SocketProvider>
         </ContextProvider>

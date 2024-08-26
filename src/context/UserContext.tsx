@@ -26,12 +26,15 @@ export const ContextProvider=({children}:{children:React.ReactNode})=>{
  
      const [user,setUser]= useState<userType>(initialUser);
 
-     const getCurrentUser = async ()=>{
+      const getCurrentUser = async ()=>{
         const getUser= await axios.get('/api/user/getCurrentUser') ;
         // const user = getUser.data.data;
         //  user.lastLogin= new Date();
-             setUser(getUser.data.data);
+        const user = getUser.data.data
+      
+             setUser(user);
         }
+
         useEffect(()=>{
            getCurrentUser();   
         },[])
