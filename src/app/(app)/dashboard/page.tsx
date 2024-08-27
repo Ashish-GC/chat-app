@@ -1,21 +1,24 @@
 "use client";
 
-import React from "react";
+import React, { useContext } from "react";
 import classes from "./dashboard.module.css";
 import { BsGlobeCentralSouthAsia } from "react-icons/bs";
 import MyContacts from "@/components/shared/my-contacts/MyContacts";
 import GlobalChat from "@/components/global-chat/GlobalChat";
+import { ShowContacts } from "@/context/ContactsContext";
 
 function page() {
-
+         const {showContacts} = useContext(ShowContacts);
   return (
     <section className={classes.container}>
+      {showContacts && <MyContacts/> } 
+       
       {/* global chat room */}
       <section className={classes.global}>
         <nav className={classes.globalNav}>
           <ul>
             <li>
-              <BsGlobeCentralSouthAsia size={20} color="gray" />
+              <BsGlobeCentralSouthAsia size={27} color="gray" />
             </li>
             <li>
               <h4>Global Chat</h4>
@@ -25,9 +28,6 @@ function page() {
 
          <GlobalChat/>
       </section>
-
-      {/* my contacts */}
-      <MyContacts/>
     </section>
   );
 }

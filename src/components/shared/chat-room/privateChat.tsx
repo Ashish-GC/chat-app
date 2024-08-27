@@ -200,7 +200,9 @@ import { ToastAction } from "@/components/ui/toast";
                 classes.globalMessage
               }`}
             >
-              <div className={classes.chatPosition}>
+              <div className={`${chat.user === user.username?"bg-[#3f66c6]":"bg-[#5a5c61]"}  ${
+                classes.chatPosition
+              }`}>
                 <p className={classes.message}>{chat.message}</p>
                 <p className={classes.timer}>{getTime.time}</p>
               </div>
@@ -226,7 +228,7 @@ import { ToastAction } from "@/components/ui/toast";
           ></input>
         </div>
 
-        <IoSend size={23} color="gray" onClick={sendMessage} />
+        <IoSend size={25} color="gray" onClick={sendMessage} />
       </footer>
     </article>
   );

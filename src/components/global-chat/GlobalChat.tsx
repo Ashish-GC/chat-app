@@ -72,7 +72,7 @@ function GlobalChat() {
       return [...prev, { user: user.username, message: userMessage ,time:time}];
     });
 
-      console.log("error");
+     
       socket?.emit("global:message", {
         user: user.username,
         message: userMessage,
@@ -165,7 +165,9 @@ function GlobalChat() {
                 classes.globalMessage
               }`}
             >
-              <div className={classes.chatPosition}>
+              <div className={`${chat.user === user.username?"bg-[#3f66c6]":"bg-[#5a5c61]"}  ${
+                classes.chatPosition
+              }`}>
                 <div>
                   <div className="flex gap-1 justify-center items-center">
                     <p className={classes.username}>{chat.user}</p>
@@ -213,7 +215,7 @@ function GlobalChat() {
           ></input>
         </div>
 
-        <IoSend size={23} color="gray" onClick={sendMessage} />
+        <IoSend size={25} color="gray" onClick={sendMessage} />
       </footer>
     </article>
   );

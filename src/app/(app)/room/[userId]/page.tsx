@@ -1,21 +1,22 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import classes from "./privateRoom.module.css";
-import MyContacts from "@/components/shared/my-contacts/MyContacts";
 import Image from "next/image";
 import profileImage from "../../../../../public/profileImage.png";
 import { IoMdClose } from "react-icons/io";
 import { FaVideo } from "react-icons/fa";
 import PrivateChat from "@/components/shared/chat-room/privateChat";
 import axios from "axios";
+import MyContacts from "@/components/shared/my-contacts/MyContacts";
+import { ShowContacts } from "@/context/ContactsContext";
 
 
 
 function page({params}:{params:{userId:string}}) {
   const [showContactInfo, setShowContactInfo] = useState(false);
   const [contactInfo,setContactInfo]=useState<any>({});
-
+  const {showContacts} = useContext(ShowContacts);
 
   const friend = params.userId;
   // get friends contact information
@@ -33,9 +34,7 @@ function page({params}:{params:{userId:string}}) {
 
   return (
     <section className={classes.container}>
-      
-      {/* contacts */}
-        <MyContacts />
+      {showContacts && <MyContacts/> } 
 
       {/* private chat room */}
 

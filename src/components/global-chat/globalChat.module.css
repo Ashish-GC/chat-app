@@ -17,6 +17,9 @@
         gap: 10px;
         height: 90%;
 }
+.globalContent::-webkit-scrollbar {
+    width: 0;
+  }
 .globalSearchBar{
     position: absolute;
     bottom: 1.3rem;
@@ -65,7 +68,8 @@
     gap: 0.5px;
     flex-direction: column;
     width: max-content;
-    background: #c1d8c1;
+    /* background: #c1d8c1; */
+    color: white;
 }
 .chatPosition div{
     gap: 1.5rem;

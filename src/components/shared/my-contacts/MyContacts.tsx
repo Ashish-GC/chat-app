@@ -109,7 +109,7 @@ function MyContacts() {
 
   return (
     <section className={classes.contacts}>
-      <nav className={classes.contactsNav}>
+      {/* <nav className={classes.contactsNav}>
         <div>
           <h4>Active Users</h4>
           <BsThreeDotsVertical
@@ -127,17 +127,17 @@ function MyContacts() {
             <Image src={profileImage} alt="profile" />
           </li>
         </ul>
-      </nav>
+      </nav> */}
 
       <section className={classes.contactsSearchBar}>
         <div>
-          <CiSearch size={18} color="gray" />
+          <CiSearch size={19} color="black" />
           <input
             onChange={(e) => {
               searchContactsHandler(e);
             }}
             type="text"
-            placeholder="Type a username"
+            placeholder="Search"
           ></input>
         </div>
       </section>
@@ -155,7 +155,7 @@ function MyContacts() {
                     <div className={classes.userContact}>
                       <div className={classes.userInfo}>
                         <p className="font-bold">{friend.username}</p>
-                        <p className="text-gray-500">{getTime.time}</p>
+                        <span className="text-gray-500">{getTime.time}</span>
                       </div>
 
                       {/* <p className='text-gray-500'>message</p> */}
@@ -173,7 +173,7 @@ function MyContacts() {
                     <div className={classes.userContact}>
                       <div className={classes.userInfo}>
                         <p className="font-bold">{friend.username}</p>
-                        <p className="text-gray-500">{getTime.time}</p>
+                        <span className="text-gray-500">{getTime.time}</span>
                       </div>
 
                       {/* <p className='text-gray-500'>message</p> */}

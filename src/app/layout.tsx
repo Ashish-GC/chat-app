@@ -6,6 +6,7 @@ import AuthProvider from "@/context/AuthContext";
 import { ContextProvider } from "@/context/UserContext";
 import { SocketProvider } from "@/context/SocketContext";
 import { Toaster } from "@/components/ui/toaster";
+import ContactsProvider from "@/context/ContactsContext";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -26,6 +27,7 @@ export default function RootLayout({
     <html lang="en">
       <AuthProvider>
         <ContextProvider>
+        <ContactsProvider>
           <SocketProvider>
       <body
        className={cn(
@@ -37,6 +39,7 @@ export default function RootLayout({
         <Toaster/>
         </body>
         </SocketProvider>
+         </ContactsProvider>
         </ContextProvider>
         </AuthProvider>
     </html>

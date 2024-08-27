@@ -2,9 +2,9 @@
 
 import { userContextType, userType } from "@/types/User";
 import axios from "axios";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useMemo, useState } from "react";
 
-const initialUser={ 
+export const initialUser={ 
     id:'',
     username: '',
     email:'',
@@ -38,8 +38,10 @@ export const ContextProvider=({children}:{children:React.ReactNode})=>{
         useEffect(()=>{
            getCurrentUser();   
         },[])
+
+        const contextValue = useMemo(() => ({ user, setUser }), [user]);
  
-    return <UserContext.Provider value={{user,setUser}}>
+    return <UserContext.Provider value={contextValue}>
         {children}
     </UserContext.Provider>
 }

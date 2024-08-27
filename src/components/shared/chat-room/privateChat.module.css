@@ -4,7 +4,6 @@
     background: url("../../../../public/chatBackground1.png") no-repeat  ;
     background-position: center center;
     background-size: cover;
-     backdrop-filter:10px;
      display: flex;
      flex-direction: column;
      position: relative;
@@ -17,6 +16,9 @@
         gap: 10px;
         height: 90%;
 }
+.globalContent::-webkit-scrollbar {
+    width: 0;
+  }
 .globalSearchBar{
     position: absolute;
     bottom: 1.3rem;
@@ -65,7 +67,8 @@
     gap: 10px;
     flex-direction: column;
     width:max-content;
-    background: #c1d8c1;
+    /* background: #c1d8c1; */
+    color: white;
 }
  .chatPosition .timer{
     display: flex;

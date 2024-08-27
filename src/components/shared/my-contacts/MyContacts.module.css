@@ -1,15 +1,12 @@
 
 .contacts{
-    flex:30%;
     border-radius:6px;
-    background: white;
+    background: #222222;
     display: flex;
     flex-direction: column;
-    padding: 12px 2rem 2rem 15px;
-    max-width: 30%;
+    max-width: max-content;
+    gap: 14px;
  }
-
-
  
  /* active users */
  .contactsNav{
@@ -17,6 +14,9 @@
        display: flex;
        flex-direction: column;
        gap: 5px; 
+       background-color: white;
+       padding: 10px;
+       border-radius: 12px;
  }
 
  .contactsNav div{
@@ -52,25 +52,30 @@
  
  /* search bar */
  .contactsSearchBar{
-      flex: 10%;
+      /* flex: 10%;
       display: flex;
       align-items: center;
       width: 100%;
+      background-color: white;
+      padding: 12px 2rem 2rem 15px; */
  }
  .contactsSearchBar div{
      display: flex;
-     background-color: #bbb6b657;
+     /* background-color: #bbb6b657; */
      gap: 5px;
      border-radius: 12px;
      padding: 1px 10px 1px 10px;
      justify-content: center;
      align-items: center;
      width: 100%;
+     background-color: white;
+     border-radius: 12px;
+     border: 1px solid white;
  }
  .contactsSearchBar div input{
      flex: 90%;
      padding: 4px;
-     background-color: #efe3e357;
+     background-color: white;
     width: 100%;
  }
  .contactsSearchBar div input:focus{
@@ -87,6 +92,9 @@
      display: flex;
      flex-direction: column;
      height: 80%;
+     background-color: white;
+     padding: 12px 0px 10px 10px;
+     border-radius: 12px;
  }
  .contactsContent h4{
       flex: 5%;
@@ -101,6 +109,7 @@
      flex-direction: column;
      max-height: 100%;
      overflow-y: scroll;
+    
  }
  .contactsProfile ul::-webkit-scrollbar {
    width: 0;
@@ -109,11 +118,12 @@
      display: flex;
      gap: 12px;
      align-items: center;
-     padding: 8px 13px 8px 13px;
+     padding: 8px 13px 8px 5px;
  }
  .contactsProfile ul li:hover{
-      background-color: rgb(234, 234, 234);
+      background-color: rgb(213, 211, 211);
       cursor: pointer;
+      border-radius: 12px 0px 0px 12px;
  }
  
  .contactsProfile ul li img{
