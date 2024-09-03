@@ -9,6 +9,7 @@ export const initialUser={
     username: '',
     email:'',
     profilePicture:'',
+    description:'',
     friends:[],
     lastLogin:new Date()
 }

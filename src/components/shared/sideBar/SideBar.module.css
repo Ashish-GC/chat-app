@@ -42,3 +42,32 @@
 .logOut:hover{
     background:#004BE1
 }
+
+@media screen and (max-width: 1024px) { 
+}
+
+@media screen and (max-width: 480px) {  
+    
+.container{
+    min-width: max-content;
+    padding: 1rem 4px 2rem 6px;
+}
+.img{
+    width:2rem;
+    height:2rem;
+}
+.options ul li{
+    border-radius: 12px 0px 0px 12px;
+    padding: 8px 0 8px 7px;
+}
+
+.options ul{
+    gap: 1rem;
+}
+
+.logOut{
+    border-radius: 12px 0px 0px 12px;
+    padding: 8px 0 8px 7px;
+}
+
+}

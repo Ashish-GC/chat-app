@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { BsEmojiSmile } from "react-icons/bs";
 import { IoSend } from "react-icons/io5";
 import classes from "./privateChat.module.css";
 import { useSocket } from "@/context/SocketContext";

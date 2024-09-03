@@ -10,6 +10,8 @@ import PrivateChat from "@/components/shared/chat-room/privateChat";
 import axios from "axios";
 import MyContacts from "@/components/shared/my-contacts/MyContacts";
 import { ShowContacts } from "@/context/ContactsContext";
+import VideoChat from "@/components/shared/videoChat/VideoChat";
+import { IoChatbubbleEllipsesSharp } from "react-icons/io5";
 
 
 
@@ -17,6 +19,8 @@ function page({params}:{params:{userId:string}}) {
   const [showContactInfo, setShowContactInfo] = useState(false);
   const [contactInfo,setContactInfo]=useState<any>({});
   const {showContacts} = useContext(ShowContacts);
+
+  const [screen,setScreen] =useState("chat");
 
   const friend = params.userId;
   // get friends contact information
@@ -28,9 +32,6 @@ function page({params}:{params:{userId:string}}) {
       getFriendsInfo();
   },[])
 
-  const openContactInfo = () => {
-    setShowContactInfo(true);
-  };
 
   return (
     <section className={classes.container}>
@@ -41,7 +42,10 @@ function page({params}:{params:{userId:string}}) {
       <section className={classes.chatRoom}>
         <nav className={classes.chatRoomNav}>
           <ul>
-            <li onClick={openContactInfo}>
+            <li onClick={()=>setShowContactInfo((prev)=>{
+              console.log(prev)
+             return !prev;
+            })}>
               <Image src={profileImage} alt="profileImage" />
               <div>
                 <h4>{contactInfo.username}</h4>
@@ -49,29 +53,32 @@ function page({params}:{params:{userId:string}}) {
               </div>
             </li>
             <li>
-              <FaVideo size={20} color="gray" />
+              {screen === "chat" && <FaVideo onClick={()=>setScreen("video")} size={20} color="gray" /> }
+              {screen === "video" && <IoChatbubbleEllipsesSharp  onClick={()=>setScreen("chat")} size={20} color="gray" />}
             </li>
           </ul>
         </nav>
-       <PrivateChat friend={friend}/>
+        {screen === "chat" &&   <PrivateChat friend={friend}/>}
+        {screen === "video" && <VideoChat friend={friend}/>}
+     
       </section>
 
       {/* contactInfo */}
       {showContactInfo && (
         <section className={classes.contactInfo}>
           <nav className={classes.contactInfoNav}>
-            <ul>
-              <li>
-                <IoMdClose color="gray" size={18} onClick={()=>setShowContactInfo(false)}/>
-                <p className="font-bold">Contact info</p>
-                <p className="font-bold">{contactInfo.username}</p>
-                <p className="font-bold">{contactInfo.email}</p>
-                <p className="font-bold">{contactInfo.lastLogin}</p>
-              </li>
-            </ul>
+                <h2>Contact info</h2>
+                <IoMdClose className="cursor-pointer" color="white" size={18} onClick={()=>setShowContactInfo(false)}/>
           </nav>
-
-          <article className={classes.contactInfoContent}></article>
+             
+          <article className={classes.contactInfoContent}>
+            <Image src={profileImage} alt="profileImage"></Image>
+            <ul>
+                <li>username : {contactInfo.username}</li>
+                <li>email : {contactInfo.email}</li>
+                <li>description : {contactInfo.description}</li>
+            </ul>
+            </article>
         </section>
       )}
 

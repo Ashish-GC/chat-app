@@ -18,7 +18,7 @@ function page() {
         <nav className={classes.globalNav}>
           <ul>
             <li>
-              <BsGlobeCentralSouthAsia size={27} color="gray" />
+              <BsGlobeCentralSouthAsia size={25} color="gray" />
             </li>
             <li>
               <h4>Global Chat</h4>

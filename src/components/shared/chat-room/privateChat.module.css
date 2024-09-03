@@ -78,3 +78,21 @@
 .message{
    padding-left: 0.5rem;
 }
+
+@media screen and (max-width: 1024px) { 
+}
+
+@media screen and (max-width: 480px) {  
+
+  
+    .globalSearchBar{
+        width: 90%;
+    } 
+    .globalSearchBar  div{
+        width: 100%;
+        gap: 5px;
+    }
+    .globalSearchBar div input{
+        width: 100%;
+    }
+}

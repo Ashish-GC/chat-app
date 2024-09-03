@@ -1,0 +1,11 @@
+.content{
+    padding: 12px;
+    flex: 90%;
+    background: url("../../../../public/chatBackground1.png") no-repeat  ;
+    background-position: center center;
+    background-size: cover;
+     display: flex;
+     flex-direction: column;
+     position: relative;
+     height: 90%;
+}

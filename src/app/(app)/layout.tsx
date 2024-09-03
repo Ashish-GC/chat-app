@@ -6,7 +6,7 @@ import React from 'react'
 function layout({children}:{children:React.ReactNode}) {
   return (
     <div className='w-[100%] h-[100%] flex justify-center items-center '>
-      <section className='w-[70%] h-[90%] rounded-md flex gap-5'>
+      <section className='lg:w-[70%] lg:h-[90%] rounded-md flex gap-5  w-[90%] h-[90%]'>
           <SideBar></SideBar>
            {children}
       </section>

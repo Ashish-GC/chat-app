@@ -106,8 +106,8 @@ export const authOptions:NextAuthOptions = {
                 throw new Error("unable to create User")
             }
           
-             currentUser.profilePicture = image;
-             currentUser.save();
+            //  currentUser.profilePicture = image;
+            //  currentUser.save();
 
             // response
     

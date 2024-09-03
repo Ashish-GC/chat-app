@@ -5,6 +5,7 @@ export type userType ={
       username: string,
       email:string,
       profilePicture:string,
+      description:string,
       friends:any,
       lastLogin:Date
 }

@@ -23,6 +23,10 @@ const userSchema = new Schema({
     type: String, // URL or path to the profile picture
     default: 'default.jpg',
   },
+  description:{
+    type:String,
+    default:""
+  },
   lastLogin: {
     type: Date,
     default: Date.now,

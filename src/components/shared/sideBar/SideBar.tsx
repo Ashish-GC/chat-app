@@ -1,4 +1,5 @@
-import React, { useContext } from "react";
+'use client'
+import React, { useContext, useState } from "react";
 import classes from "./SideBar.module.css";
 import { VscSignOut } from "react-icons/vsc";
 import { SlSettings } from "react-icons/sl";
@@ -13,8 +14,19 @@ import { ToastAction } from "@/components/ui/toast";
 import { MdOutlineContacts } from "react-icons/md";
 import { ShowContacts } from "@/context/ContactsContext";
 
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+
+
 function SideBar() {
-  const { setUser } = useContext(UserContext);
+  const { user,setUser } = useContext(UserContext);
   const { toast } = useToast();
   const { setShowContacts } = useContext(ShowContacts);
 
@@ -43,10 +55,32 @@ function SideBar() {
       });
     }
   };
+  
   return (
+    <>
     <main className={classes.container}>
       <header className={classes.userProfile}>
-        <Image className={classes.img} src={profileImage} alt="remoteImage" />
+      <Dialog>
+      <DialogTrigger asChild>
+      <Image  className={classes.img} src={profileImage} alt="remoteImage" />
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[425px] text-black">
+        <DialogHeader>
+          <DialogTitle>Profile</DialogTitle>
+        </DialogHeader>
+        <DialogDescription></DialogDescription>
+        <div className=" gap-4 py-4 flex flex-col">
+            <Image className="w-[5rem] h-[5rem] m-auto" src={profileImage} alt="profileImage"></Image>
+            <ul>
+                <li>username : {user.username}</li>
+                <li>email : {user.email}</li>
+                <li>description : {user.description}</li>
+            </ul>
+         
+        </div>
+      </DialogContent>
+    </Dialog>
+       
       </header>
       <nav className={classes.options}>
         <ul>
@@ -69,6 +103,8 @@ function SideBar() {
         <VscSignOut size={30} />
       </footer>
     </main>
+
+    </>
   );
 }
 
