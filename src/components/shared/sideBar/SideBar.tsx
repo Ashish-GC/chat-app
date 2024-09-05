@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useContext, useState } from "react";
 import classes from "./SideBar.module.css";
 import { VscSignOut } from "react-icons/vsc";
@@ -22,11 +22,10 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-
+} from "@/components/ui/dialog";
 
 function SideBar() {
-  const { user,setUser } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const { toast } = useToast();
   const { setShowContacts } = useContext(ShowContacts);
 
@@ -55,55 +54,64 @@ function SideBar() {
       });
     }
   };
-  
+
   return (
     <>
-    <main className={classes.container}>
-      <header className={classes.userProfile}>
-      <Dialog>
-      <DialogTrigger asChild>
-      <Image  className={classes.img} src={profileImage} alt="remoteImage" />
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] text-black">
-        <DialogHeader>
-          <DialogTitle>Profile</DialogTitle>
-        </DialogHeader>
-        <DialogDescription></DialogDescription>
-        <div className=" gap-4 py-4 flex flex-col">
-            <Image className="w-[5rem] h-[5rem] m-auto" src={profileImage} alt="profileImage"></Image>
-            <ul>
-                <li>username : {user.username}</li>
-                <li>email : {user.email}</li>
-                <li>description : {user.description}</li>
-            </ul>
-         
-        </div>
-      </DialogContent>
-    </Dialog>
-       
-      </header>
-      <nav className={classes.options}>
-        <ul>
-          <Link href="/dashboard">
-            <li>
-              <SlHome size={25} />
+      <main className={classes.container}>
+        <header className={classes.userProfile}>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Image
+                className={`rounded-full ${classes.img}`}
+                width={500}
+                height={500}
+                src={user.profilePicture || profileImage}
+                alt="remoteImage"
+              />
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px] text-black">
+              <DialogHeader>
+                <DialogTitle>Profile</DialogTitle>
+              </DialogHeader>
+              <DialogDescription></DialogDescription>
+              <div className=" gap-4 py-4 flex flex-col">
+                <Image
+                  className="rounded-full w-[5rem] h-[5rem] m-auto"
+                  width={500}
+                  height={500}
+                  src={user.profilePicture || profileImage}
+                  alt="profileImage"
+                ></Image>
+                <ul>
+                  <li>username : {user.username}</li>
+                  <li>email : {user.email}</li>
+                  <li>description : {user.description}</li>
+                </ul>
+              </div>
+            </DialogContent>
+          </Dialog>
+        </header>
+        <nav className={classes.options}>
+          <ul>
+            <Link href="/dashboard">
+              <li>
+                <SlHome size={25} />
+              </li>
+            </Link>
+            <li onClick={() => setShowContacts((prev) => !prev)}>
+              <MdOutlineContacts size={25} />
             </li>
-          </Link>
-          <li onClick={() => setShowContacts((prev) => !prev)}>
-            <MdOutlineContacts size={25} />
-          </li>
-          <Link href="/settings">
-            <li>
-              <SlSettings size={25} />
-            </li>
-          </Link>
-        </ul>
-      </nav>
-      <footer className={classes.logOut} onClick={logOutUser}>
-        <VscSignOut size={30} />
-      </footer>
-    </main>
-
+            <Link href="/settings">
+              <li>
+                <SlSettings size={25} />
+              </li>
+            </Link>
+          </ul>
+        </nav>
+        <footer className={classes.logOut} onClick={logOutUser}>
+          <VscSignOut size={30} />
+        </footer>
+      </main>
     </>
   );
 }

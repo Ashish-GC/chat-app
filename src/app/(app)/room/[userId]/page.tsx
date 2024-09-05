@@ -12,6 +12,7 @@ import MyContacts from "@/components/shared/my-contacts/MyContacts";
 import { ShowContacts } from "@/context/ContactsContext";
 import VideoChat from "@/components/shared/videoChat/VideoChat";
 import { IoChatbubbleEllipsesSharp } from "react-icons/io5";
+import { UserContext } from "@/context/UserContext";
 
 
 
@@ -46,7 +47,7 @@ function page({params}:{params:{userId:string}}) {
               console.log(prev)
              return !prev;
             })}>
-              <Image src={profileImage} alt="profileImage" />
+              <Image className="rounded-full" width={500} height={500} src={contactInfo.profilePicture||profileImage} alt="profileImage" />
               <div>
                 <h4>{contactInfo.username}</h4>
                 <p>status</p>
@@ -72,7 +73,7 @@ function page({params}:{params:{userId:string}}) {
           </nav>
              
           <article className={classes.contactInfoContent}>
-            <Image src={profileImage} alt="profileImage"></Image>
+            <Image className="rounded-full" width={500} height={500} src={contactInfo.profilePicture||profileImage} alt="profileImage"></Image>
             <ul>
                 <li>username : {contactInfo.username}</li>
                 <li>email : {contactInfo.email}</li>

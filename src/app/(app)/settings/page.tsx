@@ -7,14 +7,17 @@ import { ShowContacts } from "@/context/ContactsContext";
 import { IoArrowBack } from "react-icons/io5";
 import { Button } from "@/components/ui/button";
 import { UserContext } from "@/context/UserContext";
-import { toast } from "@/components/ui/use-toast";
+import { useToast } from "@/components/ui/use-toast";
 import axios from "axios";
+import FormData from "form-data"
 
 function page() {
   const { showContacts } = useContext(ShowContacts);
   const [showSetting, setShowSetting] = useState<string>("Settings");
   const {user,setUser}= useContext(UserContext);
-
+  const [profileData,setProfileData]=useState<File>();
+  
+  const {toast} = useToast();
 
   const description = useRef<HTMLTextAreaElement>(null);
 
@@ -48,6 +51,47 @@ function page() {
           });
          }
 
+   }
+   const handleProfileImageChange=(e:React.FormEvent<HTMLInputElement>)=>{
+
+      const target = e.target as HTMLInputElement & {
+        files: FileList
+      }
+            setProfileData(target?.files[0])
+    
+   }
+   const addProfileImage=async()=>{
+              let formData:any = new FormData();
+              formData.append('profileImage',profileData);
+
+               try {
+                const  response:any = await axios.post('/api/user/addProfile',formData,{
+                  headers: {
+                      'Content-Type': 'multipart/form-data', 
+                  },
+               });
+              
+               if(response){
+
+                setUser((prev)=>{
+                  return {...prev,profilePicture:response.data.imageUrl}
+                }) 
+                 
+                toast({
+                  variant: "default",
+                  description:"profile Image uploaded successfully",
+                });
+               }
+               
+               } catch (error) {
+                // show failed toast here
+                toast({
+                  variant: "default",
+                  description:"Unable to upload profile image. Try Again",
+
+                });
+               }
+               
    }
 
 const showSettingHandler = (setting: string) => {
@@ -96,9 +140,9 @@ const showSettingHandler = (setting: string) => {
               <div>
               <section className="flex gap-6 justify-between ">
                 <h4 className="text-lg">Add profile Image</h4>
-                <Button size="sm" className="text-black" variant="outline">Save</Button>
+                <Button onClick={addProfileImage} size="sm" className="text-black" variant="outline">Save</Button>
                 </section>
-                 <input type="file" placeholder="add profile Image" />
+                 <input onChange={handleProfileImageChange} accept="image/png, image/jpg" name ="image" type="file" />
               </div>
               <div>
                 <section className="flex gap-6 justify-between ">
