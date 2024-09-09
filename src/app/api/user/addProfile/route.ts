@@ -25,6 +25,11 @@ export async function POST(request: Request) {
       const uploadStream = cloudinary.uploader.upload_stream({ resource_type: "auto" }, (error, result) => {
         if (error) {
           reject(error);
+          return Response.json(
+            { success: false, message:error||"unable to upload to cloudinary"},
+            {
+              status: 200,
+            })
         } else {
           resolve(result);
         }

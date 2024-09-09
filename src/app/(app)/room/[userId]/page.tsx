@@ -13,6 +13,8 @@ import { ShowContacts } from "@/context/ContactsContext";
 import VideoChat from "@/components/shared/videoChat/VideoChat";
 import { IoChatbubbleEllipsesSharp } from "react-icons/io5";
 import { UserContext } from "@/context/UserContext";
+import { useToast } from "@/components/ui/use-toast";
+
 
 
 
@@ -20,6 +22,9 @@ function page({params}:{params:{userId:string}}) {
   const [showContactInfo, setShowContactInfo] = useState(false);
   const [contactInfo,setContactInfo]=useState<any>({});
   const {showContacts} = useContext(ShowContacts);
+  const {setUser} = useContext(UserContext);
+
+  const {toast} = useToast();
 
   const [screen,setScreen] =useState("chat");
 
@@ -33,6 +38,26 @@ function page({params}:{params:{userId:string}}) {
       getFriendsInfo();
   },[])
 
+const deleteContact=async(friend:string)=>{
+     try {
+              const response = await axios.post("/api/user/deleteFromContact",{friend:friend});
+              console.log(response);
+              if(response){
+                setUser((user)=>{
+                  return {...user,friends: user.friends.filter((contact:string)=>contact !== friend)}
+                })
+                toast({
+                  variant:"default",
+                  description:`${friend} removed from contact`,
+                });
+              }
+     } catch (error) {
+      toast({
+        variant: "destructive",
+        description:`unable to remove ${friend} from contact`,
+      });
+     }
+}
 
   return (
     <section className={classes.container}>
@@ -44,7 +69,6 @@ function page({params}:{params:{userId:string}}) {
         <nav className={classes.chatRoomNav}>
           <ul>
             <li onClick={()=>setShowContactInfo((prev)=>{
-              console.log(prev)
              return !prev;
             })}>
               <Image className="rounded-full" width={500} height={500} src={contactInfo.profilePicture||profileImage} alt="profileImage" />
@@ -79,6 +103,7 @@ function page({params}:{params:{userId:string}}) {
                 <li>email : {contactInfo.email}</li>
                 <li>description : {contactInfo.description}</li>
             </ul>
+            <button  onClick={()=>deleteContact(contactInfo.username)}>Delete Contact</button>
             </article>
         </section>
       )}

@@ -21,7 +21,7 @@ export async function POST(request:Request){
             return Response.json(
                 { success: false, message:"Unathorize request" },
                 {
-                  status: 200,
+                  status: 400,
                 })
          }
 

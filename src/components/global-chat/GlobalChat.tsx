@@ -148,7 +148,8 @@ function GlobalChat() {
       ),
     });
   });
-
+ 
+   let date_counter=0;
   return (
     <article className={classes.content}>
       <div className={classes.globalContent}>
@@ -157,7 +158,24 @@ function GlobalChat() {
             return <div key={index}></div>;
           }
               const getTime = formatDateTime(chat.time.toLocaleString())
+
+              const date = new Date(chat.time);
+              let str = ""
+               if(date.getDate() != date_counter ){
+                   date_counter=date.getDate()
+
+                   str= date.toLocaleDateString('en-GB')
+
+                    if(str === (new Date()).toLocaleDateString('en-GB')){
+                     str="Today";
+                    }
+                   
+               }
+
           return (
+            <div key={index}>
+               {str!="" && <p className="text-center m-1 text-gray-500">{str}</p>}
+        
             <div
               key={index}
               ref={ index===globalMessage.length-1? recentMessage : null }
@@ -194,6 +212,7 @@ function GlobalChat() {
                 </div>
                 <p className={classes.message}>{chat.message}</p>
               </div>
+            </div>
             </div>
           );
         })}

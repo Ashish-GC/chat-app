@@ -8,7 +8,7 @@ import { formatDateTime } from "@/helpers/handleTime";
 import { useToast } from "@/components/ui/use-toast";
 import { OpenEmoji } from "../emojiPicker/OpenEmoji";
 import { ToastAction } from "@/components/ui/toast";
-
+import { MdDeleteOutline } from "react-icons/md";
 
 
  function PrivateChat({friend}:{friend:string}) {
@@ -16,6 +16,7 @@ import { ToastAction } from "@/components/ui/toast";
   const { socket } = useSocket();
   const {toast} = useToast();
   const [message,setMessage]=useState("");
+  const [refetchMessage , setRefetchMessage]=useState(false);
 
    // listen to every change ->
    const onMessageChangeHandler=(e:any)=>{
@@ -57,7 +58,7 @@ import { ToastAction } from "@/components/ui/toast";
   if (privateRoom.name != '') {
     getMessages();
   }
- },[privateRoom?.name])
+ },[privateRoom?.name , refetchMessage])
 
  async function getMessages(){
   try {
@@ -167,6 +168,24 @@ import { ToastAction } from "@/components/ui/toast";
     })
  }
 
+ const deleteMessage=async(chat: { user:string, message:string, time: Date, roomName:string})=>{
+     try {
+           const response = await axios.post('/api/user/deleteMessage',chat);
+           if(response){
+            toast({
+              variant: "default",
+              description:"message deleted successfully",
+            });
+                    setRefetchMessage((prev)=>!prev);
+           }
+     } catch (error) {
+      toast({
+        variant: "destructive",
+        description:"Unable to delete message . TryAgain",
+      });
+     }
+ }
+
  socket?.on("connect_error", (err) => {
   toast({
     variant: "destructive",
@@ -182,6 +201,7 @@ import { ToastAction } from "@/components/ui/toast";
   });
 });
 
+ let date_counter =0;
 
   return (
     <article className={classes.content}>
@@ -191,7 +211,24 @@ import { ToastAction } from "@/components/ui/toast";
             return <div key={index}></div>;
           }
                  const getTime = formatDateTime(chat.time.toLocaleString())
+
+                 const date = new Date(chat.time);
+                 let str = ""
+                  if(date.getDate() != date_counter ){
+                      date_counter=date.getDate()
+
+                      str= date.toLocaleDateString('en-GB')
+
+                       if(str === (new Date()).toLocaleDateString('en-GB')){
+                        str="Today";
+                       }
+                      
+                  }
+
           return (
+            <div key={index}>
+                 {str!="" && <p className="text-center m-1 text-gray-500">{str}</p>}
+       
             <div
               key={index}
               ref={index===privateMessage.length-1?latestMessage:null}
@@ -203,8 +240,14 @@ import { ToastAction } from "@/components/ui/toast";
                 classes.chatPosition
               }`}>
                 <p className={classes.message}>{chat.message}</p>
+                <div className="flex gap-1 justify-end">
                 <p className={classes.timer}>{getTime.time}</p>
+                {
+                  chat.user === user.username    &&    <MdDeleteOutline className="cursor-pointer" color="white" size={15} onClick={()=>deleteMessage(chat)}/> 
+                }  
+                </div>
               </div>
+            </div>
             </div>
           );
         })}

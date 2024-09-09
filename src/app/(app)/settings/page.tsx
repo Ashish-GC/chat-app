@@ -133,23 +133,23 @@ const showSettingHandler = (setting: string) => {
             <div className="flex gap-3 items-center">
             <IoArrowBack size={25} onClick={() => showSettingHandler("Settings")}>
             </IoArrowBack>
-              <h3>{showSetting}</h3>
+              <h4>{showSetting}</h4>
             </div>
 
             <section className="h-[100%] flex flex-col gap-5">
               <div>
               <section className="flex gap-6 justify-between ">
-                <h4 className="text-lg">Add profile Image</h4>
+                <h4 className="text-sm">Add profile Image</h4>
                 <Button onClick={addProfileImage} size="sm" className="text-black" variant="outline">Save</Button>
                 </section>
-                 <input onChange={handleProfileImageChange} accept="image/png, image/jpg" name ="image" type="file" />
+                 <input className="text-sm" onChange={handleProfileImageChange} accept="image/png, image/jpg" name ="image" type="file" />
               </div>
               <div>
                 <section className="flex gap-6 justify-between ">
-                <h4 className="text-lg">Add description</h4>
+                <h4 className="text-sm">Add description</h4>
                 <Button onClick={onSaveDescription} size="sm" className="text-black" variant="outline">Save</Button>
                 </section>
-                 <textarea ref={description} className="w-[100%] h-[5rem] text-black p-[5px]" name="description" placeholder="Add description here" defaultValue={user.description}></textarea>
+                 <textarea ref={description} className="w-[100%] h-[5rem] text-black p-[5px] text-sm rounded" name="description" placeholder="Add description here" defaultValue={user.description}></textarea>
               </div>
             
             </section>

@@ -35,7 +35,7 @@ export async function POST(request: Request) {
       );
     }
 
-    if (user1.friends.includes(user2.username)) {
+    if (user1.friends.includes(user2.username) && user2.friends.includes(user1.username)) {
       return Response.json(
         { success: false, message: "already friends" },
         { status: 400 }
@@ -44,12 +44,7 @@ export async function POST(request: Request) {
     user1.friends.unshift(user2.username);
     await user1.save();
 
-    if (user2.friends.includes(user1.username)) {
-      return Response.json(
-        { success: false, message: "already friends" },
-        { status: 400 }
-      );
-    }
+
     user2.friends.unshift(user1.username);
     await user2.save();
 
