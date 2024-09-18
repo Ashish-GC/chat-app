@@ -7,7 +7,7 @@ import { socketHandler } from "./services/server-socket/socketHandler.js";
 
 const dev = process.env.NODE_ENV !== "production";
 const hostname = "localhost";
-const port = 3000;
+const port =process.env.NEXTAUTH_PORT;
 
 const app = next({ dev, hostname, port });
 const handler = app.getRequestHandler();
