@@ -3,11 +3,13 @@
 import { createServer } from "node:http";
 import next from "next";
 import { socketHandler } from "./services/server-socket/socketHandler.js";
+import dotenv from 'dotenv';
 
+dotenv.config();
 
 const dev = process.env.NODE_ENV !== "production";
 const hostname = "localhost";
-const port =process.env.NEXT_PORT;
+const port =process.env.NEXT_PORT || 8000;
 
 const app = next({ dev, hostname, port });
 const handler = app.getRequestHandler();
