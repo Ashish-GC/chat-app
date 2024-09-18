@@ -69,7 +69,7 @@ const deleteContact=async(friend:string)=>{
             <li onClick={()=>setShowContactInfo((prev)=>{
              return !prev;
             })}>
-              <Image className="rounded-full" width={500} height={500} src={contactInfo.profilePicture||profileImage} alt="profileImage" />
+              <Image className="rounded-full" width={500} height={500} src={contactInfo?.profilePicture||profileImage} alt="profileImage" />
               <div>
                 <h4>{contactInfo.username}</h4>
                 <p>status</p>
@@ -95,7 +95,7 @@ const deleteContact=async(friend:string)=>{
           </nav>
              
           <article className={classes.contactInfoContent}>
-            <Image className="rounded-full" width={500} height={500} src={contactInfo.profilePicture||profileImage} alt="profileImage"></Image>
+            <Image className="rounded-full" width={500} height={500} src={contactInfo?.profilePicture||profileImage} alt="profileImage"></Image>
             <ul>
                 <li>username : {contactInfo.username}</li>
                 <li>email : {contactInfo.email}</li>

@@ -65,7 +65,7 @@ function SideBar() {
                 className={`rounded-full ${classes.img}`}
                 width={500}
                 height={500}
-                src={user.profilePicture || profileImage}
+                src={user?.profilePicture || profileImage}
                 alt="remoteImage"
               />
             </DialogTrigger>
@@ -79,7 +79,7 @@ function SideBar() {
                   className="rounded-full w-[5rem] h-[5rem] m-auto"
                   width={500}
                   height={500}
-                  src={user.profilePicture || profileImage}
+                  src={user?.profilePicture || profileImage}
                   alt="profileImage"
                 ></Image>
                 <ul>

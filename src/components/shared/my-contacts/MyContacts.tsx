@@ -151,7 +151,7 @@ function MyContacts() {
                 const getTime = formatDateTime(friend.lastLogin);
                 return (
                   <li key={index} onClick={() => privateRoom(friend.username)}>
-                    <Image className="rounded-full" width={500} height={500} src={ friend.profilePicture||profileImage} alt="profile"></Image>
+                    <Image className="rounded-full" width={500} height={500} src={ friend?.profilePicture||profileImage} alt="profile"></Image>
                     <div className={classes.userContact}>
                       <div className={classes.userInfo}>
                         <p className="font-bold">{friend.username}</p>
@@ -169,7 +169,7 @@ function MyContacts() {
                 const getTime = formatDateTime(friend.lastLogin);
                 return (
                   <li key={index} onClick={() => privateRoom(friend.username)}>
-                    <Image className="rounded-full" width={500} height={500} src={friend.profilePicture||profileImage} alt="profile"></Image>
+                    <Image className="rounded-full" width={500} height={500} src={friend?.profilePicture||profileImage} alt="profile"></Image>
                     <div className={classes.userContact}>
                       <div className={classes.userInfo}>
                         <p className="font-bold">{friend.username}</p>
