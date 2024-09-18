@@ -19,7 +19,7 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 
 import classes from '../authstyle.module.css'
-import axios from 'axios'
+
 
 import { signIn } from "next-auth/react";
 
@@ -29,7 +29,7 @@ const formSchema = z.object({
 })
 
 
-function page() {
+function Page() {
 
     const router = useRouter();
 
@@ -99,4 +99,4 @@ function page() {
   )
 }
 
-export default page
+export default Page

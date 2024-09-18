@@ -7,7 +7,7 @@ import MyContacts from "@/components/shared/my-contacts/MyContacts";
 import GlobalChat from "@/components/global-chat/GlobalChat";
 import { useShowContacts } from "@/context/ContactsContext";
 
-function page() {
+function Page() {
          const {showContacts} = useContext(useShowContacts);
   return (
     <section className={classes.container}>
@@ -32,4 +32,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;

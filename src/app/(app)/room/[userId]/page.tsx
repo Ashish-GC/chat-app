@@ -16,7 +16,7 @@ import { useToast } from "@/components/ui/use-toast";
 
 
 
-function page({params}:{params:{userId:string}}) {
+function Page({params}:{params:{userId:string}}) {
   const [showContactInfo, setShowContactInfo] = useState(false);
   const [contactInfo,setContactInfo]=useState<any>({});
   const {showContacts} = useContext(useShowContacts);
@@ -110,4 +110,4 @@ const deleteContact=async(friend:string)=>{
   );
 }
 
-export default page;
+export default Page;

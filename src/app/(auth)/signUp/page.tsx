@@ -29,7 +29,7 @@ const formSchema = z.object({
   email: z.string().email({ message: "this is not a valid email" }),
 });
 
-function page() {
+function Page() {
   const router = useRouter();
   const { toast } = useToast();
 
@@ -130,4 +130,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;

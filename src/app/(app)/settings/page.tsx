@@ -11,7 +11,7 @@ import { useToast } from "@/components/ui/use-toast";
 import axios from "axios";
 import FormData from "form-data"
 
-function page() {
+function Page() {
   const { showContacts } = useContext(useShowContacts);
   const [showSetting, setShowSetting] = useState<string>("Settings");
   const {user,setUser}= useContext(UserContext);
@@ -200,4 +200,4 @@ const showSettingHandler = (setting: string) => {
   );
 }
 
-export default page;
+export default Page;
