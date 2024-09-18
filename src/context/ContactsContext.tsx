@@ -2,13 +2,13 @@
 
 import { createContext, Dispatch, SetStateAction, useState } from "react";
 
-interface ShowContactsContextType {
+interface showContactsContextType {
     showContacts: boolean;
     setShowContacts: Dispatch<SetStateAction<boolean>>;
   }
   
 
-export const ShowContacts = createContext<ShowContactsContextType>({
+export const useShowContacts = createContext<showContactsContextType>({
     showContacts:false,
     setShowContacts:()=>{}
 });
@@ -19,9 +19,9 @@ function ContactsProvider({children}:{children:React.ReactNode}) {
      
       
   return (
-    <ShowContacts.Provider value={{showContacts,setShowContacts}}>
+    <useShowContacts.Provider value={{showContacts,setShowContacts}}>
        {children}
-    </ShowContacts.Provider>
+    </useShowContacts.Provider>
   )
 }
 

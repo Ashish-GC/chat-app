@@ -9,9 +9,7 @@ import { FaVideo } from "react-icons/fa";
 import PrivateChat from "@/components/shared/chat-room/privateChat";
 import axios from "axios";
 import MyContacts from "@/components/shared/my-contacts/MyContacts";
-import { ShowContacts } from "@/context/ContactsContext";
-import VideoChat from "@/components/shared/videoChat/VideoChat";
-import { IoChatbubbleEllipsesSharp } from "react-icons/io5";
+import { useShowContacts } from "@/context/ContactsContext";
 import { UserContext } from "@/context/UserContext";
 import { useToast } from "@/components/ui/use-toast";
 
@@ -21,7 +19,7 @@ import { useToast } from "@/components/ui/use-toast";
 function page({params}:{params:{userId:string}}) {
   const [showContactInfo, setShowContactInfo] = useState(false);
   const [contactInfo,setContactInfo]=useState<any>({});
-  const {showContacts} = useContext(ShowContacts);
+  const {showContacts} = useContext(useShowContacts);
   const {setUser} = useContext(UserContext);
 
   const {toast} = useToast();

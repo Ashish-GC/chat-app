@@ -3,7 +3,7 @@
 import React, { useContext, useRef, useState } from "react";
 import classes from "./settings.module.css";
 import MyContacts from "@/components/shared/my-contacts/MyContacts";
-import { ShowContacts } from "@/context/ContactsContext";
+import { useShowContacts } from "@/context/ContactsContext";
 import { IoArrowBack } from "react-icons/io5";
 import { Button } from "@/components/ui/button";
 import { UserContext } from "@/context/UserContext";
@@ -12,7 +12,7 @@ import axios from "axios";
 import FormData from "form-data"
 
 function page() {
-  const { showContacts } = useContext(ShowContacts);
+  const { showContacts } = useContext(useShowContacts);
   const [showSetting, setShowSetting] = useState<string>("Settings");
   const {user,setUser}= useContext(UserContext);
   const [profileData,setProfileData]=useState<File>();

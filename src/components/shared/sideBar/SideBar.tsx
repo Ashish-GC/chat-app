@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext, useState } from "react";
+import React, { useContext} from "react";
 import classes from "./SideBar.module.css";
 import { VscSignOut } from "react-icons/vsc";
 import { SlSettings } from "react-icons/sl";
@@ -12,13 +12,13 @@ import axios from "axios";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import { MdOutlineContacts } from "react-icons/md";
-import { ShowContacts } from "@/context/ContactsContext";
+import { useShowContacts } from "@/context/ContactsContext";
 
 import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
+
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -27,7 +27,7 @@ import {
 function SideBar() {
   const { user, setUser } = useContext(UserContext);
   const { toast } = useToast();
-  const { setShowContacts } = useContext(ShowContacts);
+  const { setShowContacts } = useContext(useShowContacts);
 
   const logOutUser = async () => {
     setUser(initialUser);

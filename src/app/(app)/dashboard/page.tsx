@@ -5,10 +5,10 @@ import classes from "./dashboard.module.css";
 import { BsGlobeCentralSouthAsia } from "react-icons/bs";
 import MyContacts from "@/components/shared/my-contacts/MyContacts";
 import GlobalChat from "@/components/global-chat/GlobalChat";
-import { ShowContacts } from "@/context/ContactsContext";
+import { useShowContacts } from "@/context/ContactsContext";
 
 function page() {
-         const {showContacts} = useContext(ShowContacts);
+         const {showContacts} = useContext(useShowContacts);
   return (
     <section className={classes.container}>
       {showContacts && <MyContacts/> } 
