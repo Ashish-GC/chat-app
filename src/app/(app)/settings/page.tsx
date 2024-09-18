@@ -149,7 +149,7 @@ const showSettingHandler = (setting: string) => {
                 <h4 className="text-sm">Add description</h4>
                 <Button onClick={onSaveDescription} size="sm" className="text-black" variant="outline">Save</Button>
                 </section>
-                 <textarea ref={description} className="w-[100%] h-[5rem] text-black p-[5px] text-sm rounded" name="description" placeholder="Add description here" defaultValue={user.description}></textarea>
+                 <textarea ref={description} className="w-[100%] h-[5rem] text-black p-[5px] text-sm rounded" name="description" placeholder="Add description here" defaultValue={user?.description}></textarea>
               </div>
             
             </section>

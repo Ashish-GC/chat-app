@@ -4,6 +4,7 @@ import { createServer } from "node:http";
 import next from "next";
 import { socketHandler } from "./services/server-socket/socketHandler.js";
 import dotenv from 'dotenv';
+import cors from 'cors';
 
 dotenv.config();
 
@@ -14,6 +15,10 @@ const port =process.env.NEXT_PORT || 8000;
 
 const app = next({ dev});
 const handler = app.getRequestHandler();
+
+app.use(cors({
+    origin: process.env.NEXT_PUBLIC_NEXT_URL, 
+}));
 
 app.prepare().then(() => {
   const httpServer = createServer(handler);

@@ -36,8 +36,7 @@ export async function POST(request:Request){
                   status: 200,
                 })
          }
-             console.log("user",user)
-           console.log("before save",user.description)
+     
 
           user.description=description;
           user.save();
