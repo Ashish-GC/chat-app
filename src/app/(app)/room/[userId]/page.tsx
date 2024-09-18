@@ -71,7 +71,7 @@ const deleteContact=async(friend:string)=>{
             })}>
               <Image className="rounded-full" width={500} height={500} src={contactInfo?.profilePicture||profileImage} alt="profileImage" />
               <div>
-                <h4>{contactInfo.username}</h4>
+                <h4>{contactInfo?.username}</h4>
                 <p>status</p>
               </div>
             </li>
@@ -97,11 +97,11 @@ const deleteContact=async(friend:string)=>{
           <article className={classes.contactInfoContent}>
             <Image className="rounded-full" width={500} height={500} src={contactInfo?.profilePicture||profileImage} alt="profileImage"></Image>
             <ul>
-                <li>username : {contactInfo.username}</li>
-                <li>email : {contactInfo.email}</li>
-                <li>description : {contactInfo.description}</li>
+                <li>username : {contactInfo?.username}</li>
+                <li>email : {contactInfo?.email}</li>
+                <li>description : {contactInfo?.description}</li>
             </ul>
-            <button  onClick={()=>deleteContact(contactInfo.username)}>Delete Contact</button>
+            <button  onClick={()=>deleteContact(contactInfo?.username)}>Delete Contact</button>
             </article>
         </section>
       )}

@@ -93,7 +93,7 @@ import { MdDeleteOutline } from "react-icons/md";
       if (privateRoom.name != '') {
         // connect socket 
       
-        socket?.emit("private:Room",`${user.username} connected`);
+        socket?.emit("private:Room",`${user?.username} connected`);
         socket?.emit("join:Room",privateRoom);
         socket?.on("private:message", (data) => {
           
@@ -120,7 +120,7 @@ import { MdDeleteOutline } from "react-icons/md";
       });
     }
   
-   },[privateRoom?.name,socket?.id,user.username])
+   },[privateRoom?.name,socket?.id,user?.username])
 
   // const message = useRef<HTMLInputElement>(null);
 
@@ -128,13 +128,13 @@ import { MdDeleteOutline } from "react-icons/md";
     const userMessage = message;
     const time = new Date();
     setPrivateMessage((prev) => {
-      return [...prev, { user: user.username, message: userMessage , time, roomName:privateRoom.name}];
+      return [...prev, { user: user?.username, message: userMessage , time, roomName:privateRoom.name}];
     });
     
       // add message data to database
          async function postMessage(){
           try {
-            const messageResponse = await axios.post('/api/message',{ user: user.username, message: userMessage , time, roomName:privateRoom.name})
+            const messageResponse = await axios.post('/api/message',{ user: user?.username, message: userMessage , time, roomName:privateRoom.name})
           } catch (error) {
             toast({
               variant: "destructive",
@@ -156,7 +156,7 @@ import { MdDeleteOutline } from "react-icons/md";
      // send message to  server socket  and also store the message in message schema 
 
   socket?.emit("private:message", {
-    user: user.username,
+    user: user?.username,
     message: userMessage,
     time:time,
     roomName: privateRoom.name,
@@ -236,18 +236,18 @@ import { MdDeleteOutline } from "react-icons/md";
             <div
               key={index}
               ref={index===privateMessage.length-1?latestMessage:null}
-              className={`${chat.user === user.username && "justify-end"}  ${
+              className={`${chat.user === user?.username && "justify-end"}  ${
                 classes.globalMessage
               }`}
             >
-              <div className={`${chat.user === user.username?"bg-[#3f66c6]":"bg-[#5a5c61]"}  ${
+              <div className={`${chat.user === user?.username?"bg-[#3f66c6]":"bg-[#5a5c61]"}  ${
                 classes.chatPosition
               }`}>
                 <p className={classes.message}>{chat.message}</p>
                 <div className="flex gap-1 justify-end">
                 <p className={classes.timer}>{getTime.time}</p>
                 {
-                  chat.user === user.username    &&    <MdDeleteOutline className="cursor-pointer" color="white" size={15} onClick={()=>deleteMessage(chat)}/> 
+                  chat.user === user?.username    &&    <MdDeleteOutline className="cursor-pointer" color="white" size={15} onClick={()=>deleteMessage(chat)}/> 
                 }  
                 </div>
               </div>

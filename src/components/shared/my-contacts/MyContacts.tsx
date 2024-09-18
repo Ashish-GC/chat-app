@@ -91,9 +91,9 @@ function MyContacts() {
     router.push(`/room/${username}`);
   };
 
-  const showUserProfile = () => {
-    router.push(`/user-profile/123`);
-  };
+  // const showUserProfile = () => {
+  //   router.push(`/user-profile/123`);
+  // };
 
   const searchContactsHandler = (e: any) => {
     const searchTerm = e.target.value;
@@ -102,7 +102,7 @@ function MyContacts() {
       setFilteredContacts(contacts);
     }
     const filter: any = contacts.filter((contact) =>
-      contact.username.toLowerCase().includes(searchTerm.toLowerCase())
+      contact?.username.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setFilteredContacts(filter);
   };
@@ -150,11 +150,11 @@ function MyContacts() {
               filteredContacts.map((friend, index) => {
                 const getTime = formatDateTime(friend.lastLogin);
                 return (
-                  <li key={index} onClick={() => privateRoom(friend.username)}>
+                  <li key={index} onClick={() => privateRoom(friend?.username)}>
                     <Image className="rounded-full" width={500} height={500} src={ friend?.profilePicture||profileImage} alt="profile"></Image>
                     <div className={classes.userContact}>
                       <div className={classes.userInfo}>
-                        <p className="font-bold">{friend.username}</p>
+                        <p className="font-bold">{friend?.username}</p>
                         <span className="text-gray-500">{getTime.time}</span>
                       </div>
 
@@ -164,15 +164,15 @@ function MyContacts() {
                 );
               })}
             {filteredContacts[0]?.username == "" &&
-              contacts[0].username != "" &&
+              contacts[0]?.username != "" &&
               contacts.map((friend, index) => {
                 const getTime = formatDateTime(friend.lastLogin);
                 return (
-                  <li key={index} onClick={() => privateRoom(friend.username)}>
+                  <li key={index} onClick={() => privateRoom(friend?.username)}>
                     <Image className="rounded-full" width={500} height={500} src={friend?.profilePicture||profileImage} alt="profile"></Image>
                     <div className={classes.userContact}>
                       <div className={classes.userInfo}>
-                        <p className="font-bold">{friend.username}</p>
+                        <p className="font-bold">{friend?.username}</p>
                         <span className="text-gray-500">{getTime.time}</span>
                       </div>
 

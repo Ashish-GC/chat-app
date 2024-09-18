@@ -83,9 +83,9 @@ function SideBar() {
                   alt="profileImage"
                 ></Image>
                 <ul>
-                  <li>username : {user.username}</li>
-                  <li>email : {user.email}</li>
-                  <li>description : {user.description}</li>
+                  <li>username : {user?.username}</li>
+                  <li>email : {user?.email}</li>
+                  <li>description : {user?.description}</li>
                 </ul>
               </div>
             </DialogContent>

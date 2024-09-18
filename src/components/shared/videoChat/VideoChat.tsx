@@ -68,7 +68,7 @@ function VideoChat({friend}:{friend:string}) {
         if (privateRoom.name != '') {
           // connect socket 
         
-          socket?.emit("private:Room",`${user.username} connected`);
+          socket?.emit("private:Room",`${user?.username} connected`);
           socket?.emit("join:Room",privateRoom);
   } 
       } catch (error) {
@@ -86,7 +86,7 @@ function VideoChat({friend}:{friend:string}) {
         });
       }
     
-     },[privateRoom?.name,socket?.id,user.username])
+     },[privateRoom?.name,socket?.id,user?.username])
     
     // calling user 
 

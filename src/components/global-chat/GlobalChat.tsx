@@ -37,7 +37,7 @@ function GlobalChat() {
 
   useEffect(() => {
     try {
-      socket?.emit("connect:user", `${user.username}`);
+      socket?.emit("connect:user", `${user?.username}`);
 
       socket?.on("global:message", (data) => {
         setGlobalMessage((prev) => {
@@ -62,19 +62,19 @@ function GlobalChat() {
       });
     }
   
-  }, [user.username, socket?.id]);
+  }, [user?.username, socket?.id]);
 
   const sendMessage = () => {
     const userMessage = message ;
     const time = new Date();
     setGlobalMessage((prev) => {
       
-      return [...prev, { user: user.username, message: userMessage ,time:time}];
+      return [...prev, { user: user?.username, message: userMessage ,time:time}];
     });
 
      
       socket?.emit("global:message", {
-        user: user.username,
+        user: user?.username,
         message: userMessage,
         time:time
       });
@@ -179,20 +179,20 @@ function GlobalChat() {
             <div
               key={index}
               ref={ index===globalMessage.length-1? recentMessage : null }
-              className={`${chat.user === user.username && "justify-end"}  ${
+              className={`${chat.user === user?.username && "justify-end"}  ${
                 classes.globalMessage
               }`}
             >
-              <div className={`${chat.user === user.username?"bg-[#3f66c6]":"bg-[#5a5c61]"}  ${
+              <div className={`${chat.user === user?.username?"bg-[#3f66c6]":"bg-[#5a5c61]"}  ${
                 classes.chatPosition
               }`}>
                 <div>
                   <div className="flex gap-1 justify-center items-center">
                     <p className={classes.username}>{chat.user}</p>
-                    {  (user.username != chat.user) &&
+                    {  (user?.username != chat.user) &&
                     (
                       //check if friend or not
-                      user.friends.some(
+                      user?.friends?.some(
                         (friend: string) => friend===chat.user
                       ) ? (
                         <SiTicktick  onClick={() => addToContacts(chat.user)} color={"blue"} size={12} />
