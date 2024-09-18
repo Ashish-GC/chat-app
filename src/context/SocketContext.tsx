@@ -16,7 +16,7 @@ interface SocketContextType {
   export function SocketProvider({ children }: { children: React.ReactNode }) {
     const [socket, setSocket] = useState<Socket | undefined>(undefined);
   
-    const socketInstance = useMemo(() => io('http://localhost:3000'), []);
+    const socketInstance = useMemo(() => io(process.env.NEXT_URL || 'http://localhost:3000'), []);
   
   
     useEffect(() => {
