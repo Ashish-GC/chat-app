@@ -5,7 +5,7 @@ export const socketHandler=(httpServer)=>{
     const io = new Server(httpServer,
         {
             cors:{
-                origin: process.env.NEXT_URL
+                origin: process.env.NEXT_PUBLIC_NEXT_URL
               }
         }
        
