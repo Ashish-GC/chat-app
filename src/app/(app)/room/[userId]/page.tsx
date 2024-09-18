@@ -26,7 +26,7 @@ function page({params}:{params:{userId:string}}) {
 
   const {toast} = useToast();
 
-  const [screen,setScreen] =useState("chat");
+  // const [screen,setScreen] =useState("chat");
 
   const friend = params.userId;
   // get friends contact information
@@ -78,13 +78,13 @@ const deleteContact=async(friend:string)=>{
               </div>
             </li>
             <li>
-              {screen === "chat" && <FaVideo onClick={()=>setScreen("video")} size={20} color="gray" /> }
-              {screen === "video" && <IoChatbubbleEllipsesSharp  onClick={()=>setScreen("chat")} size={20} color="gray" />}
+              { <FaVideo size={20} color="gray" /> }
+              {/* {screen === "video" && <IoChatbubbleEllipsesSharp  onClick={()=>setScreen("chat")} size={20} color="gray" />} */}
             </li>
           </ul>
         </nav>
-        {screen === "chat" &&   <PrivateChat friend={friend}/>}
-        {screen === "video" && <VideoChat friend={friend}/>}
+        {  <PrivateChat friend={friend}/>}
+        {/* {screen === "video" && <VideoChat friend={friend}/>} */}
      
       </section>
 

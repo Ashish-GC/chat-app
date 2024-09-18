@@ -2,7 +2,7 @@
 
 import { createServer } from "node:http";
 import next from "next";
-import { socketHandler } from "./server-socket/socketHandler.js";
+import { socketHandler } from "./services/server-socket/socketHandler.js";
 
 
 const dev = process.env.NODE_ENV !== "production";

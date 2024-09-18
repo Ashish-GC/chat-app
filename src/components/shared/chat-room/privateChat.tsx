@@ -42,7 +42,11 @@ import { MdDeleteOutline } from "react-icons/md";
      async function getRoomId(){
       try {
         const response = await axios.get(`/api/my-contacts/getPrivateRoom?friend=${friend}`);
-        setPrivateRoom(response.data.privateRoom) 
+        setPrivateRoom({
+          id:response.data.privateRoom._id,
+          name:response.data.privateRoom.name,
+          contacts:response.data.privateRoom.contacts
+        }) 
       } catch (error) {
         toast({
           variant: "destructive",

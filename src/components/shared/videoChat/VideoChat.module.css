@@ -9,3 +9,19 @@
      position: relative;
      height: 90%;
 }
+.videoPlayer{
+     width: 100%;
+     height: fit-content;
+     overflow: hidden;
+}
+.localPlayer video{
+     margin: auto;
+}
+.remotePlayer video{
+    margin: auto;
+}
+.closeStream{
+    position: absolute;
+    bottom: 10px;
+    margin: auto;
+}

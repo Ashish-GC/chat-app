@@ -7,6 +7,7 @@ import { ContextProvider } from "@/context/UserContext";
 import { SocketProvider } from "@/context/SocketContext";
 import { Toaster } from "@/components/ui/toaster";
 import ContactsProvider from "@/context/ContactsContext";
+import WebRTCProvider from "@/context/WebRTCContext";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -29,6 +30,7 @@ export default function RootLayout({
         <ContextProvider>
         <ContactsProvider>
           <SocketProvider>
+          <WebRTCProvider>
       <body
        className={cn(
         "min-h-screen bg-background font-sans antialiased",
@@ -38,6 +40,7 @@ export default function RootLayout({
         {children}
         <Toaster/>
         </body>
+         </WebRTCProvider>
         </SocketProvider>
          </ContactsProvider>
         </ContextProvider>

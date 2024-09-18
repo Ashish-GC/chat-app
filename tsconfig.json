@@ -21,6 +21,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/server.js", "src/server.js", "src/server-socket/socketHandler.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/server.js", "src/server.js", "src/services/server-socket/socketHandler.js", "src/services/webRTC/peer.js"],
   "exclude": ["node_modules"]
 }

@@ -22,13 +22,18 @@ export const socketHandler=(httpServer)=>{
          socket.on("disconnect",()=>{console.log("user disconnected",socket.id)})
 
          socket.on("private:Room",(message)=>{
-            // console.log(message);
+            console.log(message);
             socket.on("join:Room",(privateRoom)=>{
                      socket.join(privateRoom.name);
             })
 
             socket.on("private:message",(data)=>{
                 socket.to(data.roomName).emit("private:message",data);
+            })
+
+            // establishing web rtc connection
+            socket.on("call:user",(data)=>{
+                socket.broadcast.emit(data);
             })
          })
          
@@ -39,6 +44,7 @@ export const socketHandler=(httpServer)=>{
             console.log(socket);
               socket.broadcast.emit("updated:contacts",socket.id);
          })
+
 
     }); 
 
