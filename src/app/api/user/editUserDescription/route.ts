@@ -7,8 +7,9 @@ export async function POST(request:Request){
       dbConnect();
     try {
         const {description} = await request.json();
-             console.log("from req",description)
-        const cookie=cookies().get('next-auth.session-token')?.value;
+             
+        const cookieName = process.env.NODE_ENV === "production"? "__Secure-next-auth.session-token": "next-auth.session-token";
+        const cookie=cookies().get(cookieName)?.value;
 
         const decodeCookie = await decode({
             token:cookie,

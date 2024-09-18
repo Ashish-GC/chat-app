@@ -8,7 +8,8 @@ export async function POST(request: Request) {
   try {
     const { friend } = await request.json();
 
-    const session = cookies().get("next-auth.session-token")?.value;
+    const cookieName = process.env.NODE_ENV === "production"? "__Secure-next-auth.session-token": "next-auth.session-token";
+    const session = cookies().get(cookieName)?.value;
 
     const decodeCookie = await decode({
       token: session,
