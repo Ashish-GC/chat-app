@@ -1,6 +1,6 @@
 chat App
 
-deployed  : https://chat-app-jrap.onrender.com
+deployed  : https://chat-app-nu-green.vercel.app/
 
 1) Authentication and Authorization :
     a) using NextAuth (google provider)
