@@ -23,6 +23,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { signOut } from "next-auth/react";
 
 function SideBar() {
   const { user, setUser } = useContext(UserContext);
@@ -32,23 +33,7 @@ function SideBar() {
   const logOutUser = async () => {
     setUser(initialUser);
     try {
-      const response = await axios.get("api/user/signOut");
-      if (response) {
-        toast({
-          variant: "default",
-          description: "Signed out successfully",
-          action: (
-            <ToastAction
-              altText="Sign In"
-              onClick={() => window.location.reload()}
-            >
-              Sign In Again
-            </ToastAction>
-          ),
-        });
-
-        setTimeout(()=>{ window.location.reload()},2000)
-      }
+      signOut({callbackUrl:process.env.NEXTAUTH_URL})
     } catch (error) {
       toast({
         variant: "destructive",

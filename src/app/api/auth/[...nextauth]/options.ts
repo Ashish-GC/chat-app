@@ -4,6 +4,7 @@ import dbConnect from "@/lib/dbConnect";
 import { User } from "@/model/User";
 import NextAuth, { NextAuthOptions } from "next-auth"
 import GoogleProvider from "next-auth/providers/google";
+import { cookies } from "next/headers";
 
 // import CredentialsProvider from 'next-auth/providers/credentials'
 // import bcrypt from 'bcrypt'
@@ -142,6 +143,12 @@ export const authOptions:NextAuthOptions = {
 
   pages: {
     signIn: '/signIn', // Custom sign-in page
+  },
+  events:{
+    async signOut({token}){
+        const cookieName = process.env.NODE_ENV === "production"? "__Secure-next-auth.session-token": "next-auth.session-token";
+             cookies().delete(cookieName)
+    }
   }
 }
 export default NextAuth(authOptions)
